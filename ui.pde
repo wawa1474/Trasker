@@ -4,14 +4,40 @@ general idea:
 */
 
 //retainer r;
-ArrayList<retainer> holders;
+ArrayList<retainer> orphanTasks;
 //ArrayList<taskHolder> holders;
 ArrayList<PImage> icons = new ArrayList<PImage>(0);
 
 final int NONE = -1;
 final int spotSpacing = 4;
 boolean showCursor = false;
-int currentRetainer = NONE;
+int currentRetainer = 0;//NONE
+
+class label{
+  color background;
+  String text;
+  
+  label(){}
+  
+  label(String t_, color b_){
+    text = t_;
+    background = b_;
+  }
+  
+  void draw(float x_, float y_, float w_, float h_){
+    pushStyle();
+    noStroke();
+    fill(background);
+    rect(x_,y_,w_,h_);
+    fill(0);
+    text(text,x_,y_);
+    popStyle();
+  }
+}
+
+class taskList{
+  ArrayList<retainer> tasks = new ArrayList<retainer>(0);
+}
 
 //class taskHolder extends retainer{
 //  ArrayList<retainer> tasks = new ArrayList<retainer>(0);
@@ -20,11 +46,11 @@ int currentRetainer = NONE;
 //    super();
 //  }
   
-//  void draw(){
-//    super.draw();
+//  void draw(boolean showCursor_){
+//    super.draw(showCursor_);
 //    for(int i = 0; i < tasks.size(); i++){
 //      retainer tmp = tasks.get(i);
-//      tmp.draw();
+//      tmp.draw(showCursor_);
 //    }
 //  }
   
@@ -65,6 +91,8 @@ class retainer{
   String text = "Type your text here...";
   //int cursorPosition = text.length();
   color fgColor = 0xFFFFCC00;
+  int cursX = 0;
+  int cursY = 0;
   
   boolean changingTitle = false;
   boolean dragging = false;
@@ -84,6 +112,11 @@ class retainer{
     h = h_;
     fgColor = fgColor_;
     bgColor = bgColor_;
+    //ArrayList<String> test = new ArrayList<String>();
+    //test.add("a");
+    //println(test);
+    //test.add(0,"b");
+    //println(test);
   }
   
   void draw(boolean showCursor_){
@@ -186,7 +219,14 @@ class retainer{
     }else{
       text = tmp;
     }
-    int l = (tmp.length() + ((changingTitle == true)?5:1)) * nPatch + 1;
+    String[] tmpA = tmp.split("\n");
+    int l = 0;
+    for(int i = 0; i < tmpA.length; i++){
+      int tmpL = (tmpA[i].length() + ((changingTitle == true)?5:1)) * nPatch + 1;
+      if(tmpL > l){
+        l = tmpL;
+      }
+    }
     if(l > w){
       w = l;
     }

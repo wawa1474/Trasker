@@ -5,7 +5,7 @@ general idea:
 
 void mousePressed() {
   if(checkSqr(0, 0, 16)){
-    holders.add(new retainer());
+    orphanTasks.add(new retainer());
   }
   //test.mousePressed();
   for (int d = level.size() - 1; d >= 0; d--) {
@@ -25,13 +25,16 @@ void mousePressed() {
   //  r.mousePressed();
   //}
   //currentRetainer = NONE;
-  for(int i = 0; i < holders.size(); i++){
+  if(orphanTasks.get(currentRetainer).mousePressed() == true){
+    return;
+  }
+  for(int i = 0; i < orphanTasks.size(); i++){
     //holders.get(i).mousePressed();
-    retainer tmp = holders.get(i);
+    retainer tmp = orphanTasks.get(i);
     if(tmp.mousePressed() == true){
       switch(tmp.ret.function){
         case func_EXIT:
-          holders.remove(i);
+          orphanTasks.remove(i);
           i--;
       }
       currentRetainer = i;
@@ -61,8 +64,8 @@ void mouseDragged() {
   //if(r != null){
   //  r.mouseDragged();
   //}
-  for(int i = 0; i < holders.size(); i++){
-    holders.get(i).mouseDragged();
+  for(int i = 0; i < orphanTasks.size(); i++){
+    orphanTasks.get(i).mouseDragged();
   }
 }
 
@@ -76,8 +79,8 @@ void mouseReleased() {
   //if(r != null){
   //  r.mouseReleased();
   //}
-  for(int i = 0; i < holders.size(); i++){
-    holders.get(i).mouseReleased();
+  for(int i = 0; i < orphanTasks.size(); i++){
+    orphanTasks.get(i).mouseReleased();
   }
 }
 

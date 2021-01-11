@@ -27,11 +27,11 @@ void keyPressed(){//We pressed a key
   }
   lastKey = keyCode;
   
-  print(hex(key));
-  print(", ");
-  print(hex(keyCode));
-  print(", ");
-  println(lastKey);
+  //print(hex(key));
+  //print(", ");
+  //print(hex(keyCode));
+  //print(", ");
+  //println(lastKey);
 }//void keyPressed() END
 
 void keyTyped() {
@@ -52,20 +52,20 @@ void keyTyped() {
   //if(r != null){
   //  r.keyTyped();
   //}
-  for(int i = 0; i < holders.size(); i++){
+  for(int i = 0; i < orphanTasks.size(); i++){
     if(i == currentRetainer){
-      holders.get(i).keyTyped();
+      orphanTasks.get(i).keyTyped();
     }
   }
   
   //if(keyCode == ){
     
   //}
-  print(hex(key));
-  print(", ");
-  print(hex(keyCode));
-  print(", ");
-  println(lastKey);
+  //print(hex(key));
+  //print(", ");
+  //print(hex(keyCode));
+  //print(", ");
+  //println(lastKey);
 }
 
 void keyReleased(){

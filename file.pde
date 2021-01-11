@@ -33,8 +33,8 @@ void saveTask(){
   mapFile.add((byte)0x00);//03
   
   //number of retainers
-  mapFile.add((byte)(holders.size() >> 8));//upper byte
-  mapFile.add((byte)holders.size());//lower byte
+  mapFile.add((byte)(orphanTasks.size() >> 8));//upper byte
+  mapFile.add((byte)orphanTasks.size());//lower byte
   
   padMapFileArray();//pad to a 16 byte boundary
   
@@ -49,8 +49,8 @@ void saveTask(){
         
     //  }
     //}
-    for(int i = 0; i < holders.size(); i++){
-      retainer tmp = holders.get(i);
+    for(int i = 0; i < orphanTasks.size(); i++){
+      retainer tmp = orphanTasks.get(i);
       //Task Title
       for(int j = 0; j < tmp.title.length(); j++){
         mapFile.add((byte)tmp.title.charAt(j));//??
@@ -147,7 +147,7 @@ void loadTask(){
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////FILE METADATA
   
   if(fileVersion == 0){//whats the file version
-    holders.clear();
+    orphanTasks.clear();
     int place = headerLength;
   
     for(int i = 0; i < numberHolders; i++){
@@ -196,7 +196,7 @@ void loadTask(){
       color fgColor = color(int(mapFile[textLength + 8 + place]),int(mapFile[textLength + 9 + place]),int(mapFile[textLength + 10 + place]),int(mapFile[textLength + 11 + place]));
       color bgColor = color(int(mapFile[textLength + 12 + place]),int(mapFile[textLength + 13 + place]),int(mapFile[textLength + 14 + place]),int(mapFile[textLength + 15 + place]));
       
-      holders.add(new retainer(taskTitle, taskText, x, y, w, h, fgColor, bgColor));
+      orphanTasks.add(new retainer(taskTitle, taskText, x, y, w, h, fgColor, bgColor));
       
       place += textLength + 16;
       place += padMapFileArray(place);

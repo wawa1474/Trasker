@@ -5,7 +5,9 @@ PImage[] font;
 PImage[] font2;
 
 void LoadFonts(){
-  font = LoadText("font-alpha.png");
+  //font = LoadText("font-alpha.png");
+  //font = LoadText("fontTest.png");
+  font = LoadText("fontTest_4x4.png");
   font2 = LoadText("custom.png");
 }
 
@@ -32,7 +34,11 @@ void DrawText(String text_, float x_, float y_, boolean cursor){
     }
   }
   if(showCursor == true && cursor == true){
-    DrawCharacter(char(0x5F), x_ + (tmp[tmp.length - 1].length() * nPatch), y_ + ((tmp.length - 1) * nPatch));
+    //DrawCharacter(char(0x5F), x_ + (tmp[tmp.length - 1].length() * nPatch), y_ + ((tmp.length - 1) * nPatch));
+    stroke(255);
+    float tmpX = x_ + (tmp[tmp.length - 1].length() * nPatch);
+    float tmpY = y_ + ((tmp.length - 1) * nPatch);
+    line(tmpX, tmpY, tmpX, tmpY + nPatch);
   }
 }
 

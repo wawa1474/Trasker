@@ -1,3 +1,4 @@
+//created 1/13/2020?
 /*
 Trasker: The task tracker
 general idea:
@@ -55,8 +56,8 @@ void setup(){
   //spawn(new textInterface(10, 210, 512, 512));
   //r = new retainer();
   
-  holders = new ArrayList<retainer>(0);
-  holders.add(new retainer());
+  orphanTasks = new ArrayList<retainer>(0);
+  orphanTasks.add(new retainer());
 }
 
 void draw(){
@@ -83,9 +84,12 @@ void draw(){
   //if(r != null){
   //  r.draw();
   //}
-  for(int i = 0; i < holders.size(); i++){
-    holders.get(i).draw((i == currentRetainer)?true:false);
+  for(int i = 0; i < orphanTasks.size(); i++){
+    if(i != currentRetainer){
+      orphanTasks.get(i).draw(false);//(i == currentRetainer)?true:false);
+    }
   }
+  orphanTasks.get(currentRetainer).draw(true);
   
   if(frameCount % 30 == 0){
     showCursor = !showCursor;
@@ -94,7 +98,7 @@ void draw(){
   image(img_plus,0,0);
   
   if(currentRetainer != NONE && tool.isVisible()){
-    holders.get(currentRetainer).updateColor();
+    orphanTasks.get(currentRetainer).updateColor();
   }
   
   //fill(currentTileColor.getColor());
